@@ -20,6 +20,10 @@ class FOnlineFriendsInterfaceGameSparks : public IOnlineFriends
 
         virtual bool RejectInvite(int32 LocalUserNum, const FUniqueNetId &FriendId, const FString &ListName) override;
 
+        virtual void SetFriendAlias(int32 LocalUserNum, const FUniqueNetId& FriendId, const FString& ListName, const FString& Alias, const FOnSetFriendAliasComplete& Delegate = FOnSetFriendAliasComplete()) override;
+
+        virtual void DeleteFriendAlias(int32 LocalUserNum, const FUniqueNetId& FriendId, const FString& ListName, const FOnDeleteFriendAliasComplete& Delegate = FOnDeleteFriendAliasComplete()) override;
+
         virtual bool DeleteFriend(int32 LocalUserNum, const FUniqueNetId &FriendId, const FString &ListName) override;
 
         virtual bool GetFriendsList(int32 LocalUserNum, const FString &ListName, TArray<TSharedRef<FOnlineFriend> > &OutFriends) override;
@@ -31,6 +35,8 @@ class FOnlineFriendsInterfaceGameSparks : public IOnlineFriends
         virtual bool QueryRecentPlayers(const FUniqueNetId &UserId, const FString &Namespace) override;
 
         virtual bool GetRecentPlayers(const FUniqueNetId &UserId, const FString &Namespace, TArray<TSharedRef<FOnlineRecentPlayer> > &OutRecentPlayers) override;
+
+        virtual void DumpRecentPlayers() const override;
 
         #if GS_UE_VERSION >= GS_MAKE_VERSION(4,11)
             virtual bool BlockPlayer(int32 LocalUserNum, const FUniqueNetId &PlayerId) override;

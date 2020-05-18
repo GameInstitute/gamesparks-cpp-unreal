@@ -381,7 +381,7 @@ FPlatformUserId FOnlineIdentityInterfaceGameSparks::GetPlatformUserIdFromUniqueN
 void FOnlineIdentityInterfaceGameSparks::RevokeAuthToken(const FUniqueNetId& UserId, const FOnRevokeAuthTokenCompleteDelegate& Delegate)
 {
     // Not Implemented
-    Delegate.ExecuteIfBound(UserId, FOnlineError("RevokeAuthToken Not Implemented"));
+    Delegate.ExecuteIfBound(UserId, FOnlineError(TEXT("RevokeAuthToken Not Implemented")));
 }
 #endif
 

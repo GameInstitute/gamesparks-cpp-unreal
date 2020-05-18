@@ -17,7 +17,7 @@ public:
 
 	virtual IOnlineSubsystemPtr CreateSubsystem(FName InstanceName)
 	{
-		FOnlineSubsystemGameSparksPtr OnlineSub = MakeShareable(new FOnlineSubsystemGameSparks());
+		FOnlineSubsystemGameSparksPtr OnlineSub = MakeShareable(new FOnlineSubsystemGameSparks(FName("OnlineSubsystemGameSparks"),InstanceName));
 		if (OnlineSub->IsEnabled())
 		{
 			if(!OnlineSub->Init())

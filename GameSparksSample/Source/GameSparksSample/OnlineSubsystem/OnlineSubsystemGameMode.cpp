@@ -55,7 +55,7 @@ void AOnlineSubsystemGameMode::Tick(float DeltaSeconds)
 }
 
 
-void AOnlineSubsystemGameMode::OnConnectionStatusChanged(EOnlineServerConnectionStatus::Type LastConnectionState, EOnlineServerConnectionStatus::Type ConnectionState)
+void AOnlineSubsystemGameMode::OnConnectionStatusChanged(const FString& ServiceName, EOnlineServerConnectionStatus::Type LastConnectionState, EOnlineServerConnectionStatus::Type ConnectionState)
 {
     if(ConnectionState == EOnlineServerConnectionStatus::Type::Connected)
     {

@@ -1,7 +1,7 @@
 #include "GameSparks/GSPlatformDeduction.h"
 #include "easywsclient/easywsclient.hpp"
 
-#if (GS_TARGET_PLATFORM == GS_PLATFORM_WIN32) && !(((GS_TARGET_PLATFORM == GS_PLATFORM_WIN32) && !GS_WINDOWS_DESKTOP) || GS_TARGET_PLATFORM == GS_PLATFORM_UWP || GS_TARGET_PLATFORM == GS_PLATFORM_XBOXONE)
+#if (GS_TARGET_PLATFORM == GS_PLATFORM_WIN32) && !(((GS_TARGET_PLATFORM == GS_PLATFORM_WIN32) && !GS_WINDOWS_DESKTOP) || GS_TARGET_PLATFORM == GS_PLATFORM_XBOXONE)
 
 #include <mbedtls/entropy.h>
 #include <mbedtls/ctr_drbg.h>

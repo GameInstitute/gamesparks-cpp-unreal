@@ -21,12 +21,6 @@
 			"Type" : "Runtime",
 			"WhitelistPlatforms" : [ "Win32", "Win64", "Mac", "Android", "IOS", "PS4", "XboxOne", "Linux", "Switch" ],
 			"LoadingPhase" : "PreDefault"
-		},
-		{
-			"Name" : "OnlineSubsystemGameSparks",
-			"Type" : "Runtime",
-			"WhitelistPlatforms" : [ "Win32", "Win64", "Mac", "Android", "IOS", "PS4", "XboxOne", "Linux", "Switch" ],
-			"LoadingPhase" : "Default"
 		}
 	],
 	"Plugins": [

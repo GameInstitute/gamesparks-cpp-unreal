@@ -1105,7 +1105,7 @@ namespace GameSparks
 			};
 			/*!
 			\ingroup Leaderboards
-			A response containing leaderboard entry data for a given player. Example response: <pre>{"HS": {"userId":"exampleUserId12345678901","SCORE": 123,"city":"York","country":"GB","userName":"","when":"2014-07-17T12:18Z","rank": 1 }</pre>
+			A response containing leaderboard entry data for a given player. Example response: <pre>{"HS": {"userId":"537f08e1e4b01fdedfa52c49","SCORE": 123,"city":"York","country":"GB","userName":"","when":"2014-07-17T12:18Z","rank": 1 }</pre>
 			*/
 			class GetLeaderboardEntriesResponse : public  GameSparks::Core::GSTypedResponse
 			{
@@ -1583,7 +1583,7 @@ namespace GameSparks
 			};
 			/*!
 			\ingroup Leaderboards
-			A response containing leaderboard entry data for a given player. The response will contain one key for every leaderboard in the result. Example response: <pre>{"HS": [{"userId":"exampleUserId12345678901","SCORE": 123,"city":"York","country":"GB","userName":"","when":"2014-07-17T12:18Z","rank": 1  }]}</pre>
+			A response containing leaderboard entry data for a given player. The response will contain one key for every leaderboard in the result. Example response: <pre>{"HS": [{"userId":"537f08e1e4b01fdedfa52c49","SCORE": 123,"city":"York","country":"GB","userName":"","when":"2014-07-17T12:18Z","rank": 1  }]}</pre>
 			*/
 			class LeaderboardsEntriesResponse : public  GameSparks::Core::GSTypedResponse
 			{

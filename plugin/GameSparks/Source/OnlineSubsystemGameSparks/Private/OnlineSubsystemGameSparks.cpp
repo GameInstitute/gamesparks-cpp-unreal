@@ -49,7 +49,7 @@ IOnlineVoicePtr FOnlineSubsystemGameSparks::GetVoiceInterface() const
 	return nullptr;
 }
 
-IOnlineExternalUIPtr FOnlineSubsystemGameSparks::GetExternalUIInterface() const	
+IOnlineExternalUIPtr FOnlineSubsystemGameSparks::GetExternalUIInterface() const
 {
 	return nullptr;
 }
@@ -76,6 +76,12 @@ IOnlineEntitlementsPtr FOnlineSubsystemGameSparks::GetEntitlementsInterface() co
 
 IOnlineStorePtr FOnlineSubsystemGameSparks::GetStoreInterface() const
 {
+	return nullptr;
+}
+
+IOnlineTournamentPtr FOnlineSubsystemGameSparks::GetTournamentInterface() const
+{
+	// Todo
 	return nullptr;
 }
 
@@ -116,7 +122,7 @@ IOnlineChatPtr FOnlineSubsystemGameSparks::GetChatInterface() const
 
 IOnlineTurnBasedPtr FOnlineSubsystemGameSparks::GetTurnBasedInterface() const
 {
-    return nullptr;
+	return nullptr;
 }
 
 bool FOnlineSubsystemGameSparks::Tick(float DeltaTime)
@@ -126,58 +132,58 @@ bool FOnlineSubsystemGameSparks::Tick(float DeltaTime)
 		return false;
 	}
 
-    // wait for the GS module to be loaded and initialize it
-    if(UGameSparksModule::GetModulePtr() && !UGameSparksModule::GetModulePtr()->IsInitialized())
-    {
-        FString ApiKey;
-        if(!GConfig->GetString(TEXT("OnlineSubsystemGameSparks"), TEXT("ApiKey"), ApiKey, GEngineIni))
-        {
-            UE_LOG(LogOnline, Display, TEXT("OnlineSubsystemGameSparks: ApiKey not configured in Engine.ini - please add in the [OnlineSubsystemGameSparks] section."));
-            return false;
-        }
+	// wait for the GS module to be loaded and initialize it
+	if (UGameSparksModule::GetModulePtr() && !UGameSparksModule::GetModulePtr()->IsInitialized())
+	{
+		FString ApiKey;
+		if (!GConfig->GetString(TEXT("OnlineSubsystemGameSparks"), TEXT("ApiKey"), ApiKey, GEngineIni))
+		{
+			UE_LOG(LogOnline, Display, TEXT("OnlineSubsystemGameSparks: ApiKey not configured in Engine.ini - please add in the [OnlineSubsystemGameSparks] section."));
+			return false;
+		}
 
-        FString ApiSecret;
-        if(!GConfig->GetString(TEXT("OnlineSubsystemGameSparks"), TEXT("ApiSecret"), ApiSecret, GEngineIni))
-        {
-            UE_LOG(LogOnline, Display, TEXT("OnlineSubsystemGameSparks: ApiSecret not configured in Engine.ini - please add in the [OnlineSubsystemGameSparks] section."));
-            return false;
-        }
+		FString ApiSecret;
+		if (!GConfig->GetString(TEXT("OnlineSubsystemGameSparks"), TEXT("ApiSecret"), ApiSecret, GEngineIni))
+		{
+			UE_LOG(LogOnline, Display, TEXT("OnlineSubsystemGameSparks: ApiSecret not configured in Engine.ini - please add in the [OnlineSubsystemGameSparks] section."));
+			return false;
+		}
 
-        bool usePreviewServer = false;
-        GConfig->GetBool(TEXT("OnlineSubsystemGameSparks"), TEXT("bUsePreviewServer"), usePreviewServer, GEngineIni);
+		bool usePreviewServer = false;
+		GConfig->GetBool(TEXT("OnlineSubsystemGameSparks"), TEXT("bUsePreviewServer"), usePreviewServer, GEngineIni);
 
-        #if UE_BUILD_SHIPPING
-        if(usePreviewServer)
-        {
-            UE_LOG(LogOnline, Display, TEXT("OnlineSubsystemGameSparks: WARNING: bUsePreviewServer is True in a shipping build. Overriding your setting"));
-            usePreviewServer = false;
-        }
-        #endif
+#if UE_BUILD_SHIPPING
+		if (usePreviewServer)
+		{
+			UE_LOG(LogOnline, Display, TEXT("OnlineSubsystemGameSparks: WARNING: bUsePreviewServer is True in a shipping build. Overriding your setting"));
+			usePreviewServer = false;
+		}
+#endif
 
-        OnGameSparksAvailableDelegateHandle = UGameSparksModule::GetModulePtr()->AddOnGameSparksAvailableDelegate_Handle(OnGameSparksAvailableDelegate);
-        UGameSparksModule::GetModulePtr()->Initialize(ApiKey, ApiSecret, usePreviewServer, false);
-    }
+		OnGameSparksAvailableDelegateHandle = UGameSparksModule::GetModulePtr()->AddOnGameSparksAvailableDelegate_Handle(OnGameSparksAvailableDelegate);
+		UGameSparksModule::GetModulePtr()->Initialize(ApiKey, ApiSecret,/* usePreviewServer,*/ false, false);
+	}
 	return true;
 }
 
 
 void FOnlineSubsystemGameSparks::OnGameSparksAvailable(bool available)
 {
-    auto currentConnectionStatus = available?EOnlineServerConnectionStatus::Type::Connected:EOnlineServerConnectionStatus::Type::NotConnected;
-    //#if ENGINE_MAJOR_VERSION >= 4 && ENGINE_MINOR_VERSION >= 19
-    //TriggerOnConnectionStatusChangedDelegates(GetSubsystemName().ToString(), lastConnectionStatus, currentConnectionStatus);
-    //#else
-    TriggerOnConnectionStatusChangedDelegates(lastConnectionStatus, currentConnectionStatus);
-    //#endif
-    lastConnectionStatus = currentConnectionStatus;
+	auto currentConnectionStatus = available ? EOnlineServerConnectionStatus::Type::Connected : EOnlineServerConnectionStatus::Type::NotConnected;
+	//#if ENGINE_MAJOR_VERSION >= 4 && ENGINE_MINOR_VERSION >= 19
+	//TriggerOnConnectionStatusChangedDelegates(GetSubsystemName().ToString(), lastConnectionStatus, currentConnectionStatus);
+	//#else
+	TriggerOnConnectionStatusChangedDelegates(GetSubsystemName().ToString(), lastConnectionStatus, currentConnectionStatus);
+	//#endif
+	lastConnectionStatus = currentConnectionStatus;
 }
 
 
 bool FOnlineSubsystemGameSparks::Init()
 {
-    IdentityInterface = MakeShareable(new FOnlineIdentityInterfaceGameSparks());
+	IdentityInterface = MakeShareable(new FOnlineIdentityInterfaceGameSparks());
 	UserInterface = MakeShareable(new FOnlineUserInterfaceGameSparks());
-    FriendsInterface = MakeShareable(new FOnlineFriendsInterfaceGameSparks());
+	FriendsInterface = MakeShareable(new FOnlineFriendsInterfaceGameSparks());
 
 	return true;
 }
@@ -194,14 +200,14 @@ FString FOnlineSubsystemGameSparks::GetAppId() const
 	return TEXT("GameSparks");
 }
 
-bool FOnlineSubsystemGameSparks::Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& Ar) 
+bool FOnlineSubsystemGameSparks::Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& Ar)
 {
-	#if GS_UE_VERSION > 41000
+#if GS_UE_VERSION > 41000
 	if (FOnlineSubsystemImpl::Exec(InWorld, Cmd, Ar))
 	{
 		return true;
 	}
-    #endif
+#endif
 
 	return false;
 }
@@ -218,25 +224,29 @@ bool FOnlineSubsystemGameSparks::IsEnabled()
 
 #if !UE_BUILD_SHIPPING
 	// Check the commandline for disabling GameSparks
-	bEnableGameSparks = bEnableGameSparks && !FParse::Param(FCommandLine::Get(),TEXT("NOGameSparks"));
+	bEnableGameSparks = bEnableGameSparks && !FParse::Param(FCommandLine::Get(), TEXT("NOGameSparks"));
 #endif
 
 	return bEnableGameSparks;
 }
 
 
-FOnlineSubsystemGameSparks::FOnlineSubsystemGameSparks() 
+FOnlineSubsystemGameSparks::FOnlineSubsystemGameSparks(FName InSubsystemName, FName InInstanceName)
+	:FOnlineSubsystemImpl(InSubsystemName,InInstanceName)
 {
-    OnGameSparksAvailableDelegate = FOnGameSparksAvailableDelegate::CreateLambda([=](bool available){
-        this->OnGameSparksAvailable(available);
-    });
+	SubsystemName = InSubsystemName;
+	InstanceName = InInstanceName;
+
+	OnGameSparksAvailableDelegate = FOnGameSparksAvailableDelegate::CreateLambda([=](bool available) {
+		this->OnGameSparksAvailable(available);
+	});
 }
 
 
 FOnlineSubsystemGameSparks::~FOnlineSubsystemGameSparks()
 {
-    if(OnGameSparksAvailableDelegateHandle.IsValid() && UGameSparksModule::GetModulePtr())
-    {
-        UGameSparksModule::GetModulePtr()->ClearOnGameSparksAvailableDelegate_Handle(OnGameSparksAvailableDelegateHandle);
-    }
+	if (OnGameSparksAvailableDelegateHandle.IsValid() && UGameSparksModule::GetModulePtr())
+	{
+		UGameSparksModule::GetModulePtr()->ClearOnGameSparksAvailableDelegate_Handle(OnGameSparksAvailableDelegateHandle);
+	}
 }

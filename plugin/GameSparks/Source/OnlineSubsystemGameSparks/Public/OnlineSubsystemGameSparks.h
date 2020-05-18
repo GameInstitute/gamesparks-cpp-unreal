@@ -33,7 +33,7 @@ public:
 	virtual IOnlineTitleFilePtr GetTitleFileInterface() const override;
 	virtual IOnlineEntitlementsPtr GetEntitlementsInterface() const override;
 	virtual IOnlineStorePtr GetStoreInterface() const override;
-
+	virtual IOnlineTournamentPtr GetTournamentInterface() const override;
     // only available in UE 4.11+ (not in 4.10)
     #if ENGINE_MAJOR_VERSION >= 4 && ENGINE_MINOR_VERSION >= 11
 	virtual IOnlineStoreV2Ptr GetStoreV2Interface() const override { return nullptr; }
@@ -84,9 +84,9 @@ public:
 	#endif
 
 PACKAGE_SCOPE:
-
+	FOnlineSubsystemGameSparks() = delete;
 	/** Only the factory makes instances */
-	FOnlineSubsystemGameSparks();
+	explicit FOnlineSubsystemGameSparks(FName InSubsystemName, FName InInstanceName);
 
 private:
     FOnGameSparksAvailableDelegate OnGameSparksAvailableDelegate;

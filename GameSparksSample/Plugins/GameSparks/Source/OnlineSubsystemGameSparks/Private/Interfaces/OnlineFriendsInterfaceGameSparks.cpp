@@ -73,6 +73,16 @@ bool FOnlineFriendsInterfaceGameSparks::RejectInvite(int32 LocalUserNum, const F
     return false; // not supported
 }
 
+void FOnlineFriendsInterfaceGameSparks::SetFriendAlias(int32 LocalUserNum, const FUniqueNetId& FriendId, const FString& ListName, const FString& Alias, const FOnSetFriendAliasComplete& Delegate)
+{
+    // Todo
+}
+
+void FOnlineFriendsInterfaceGameSparks::DeleteFriendAlias(int32 LocalUserNum, const FUniqueNetId& FriendId, const FString& ListName, const FOnDeleteFriendAliasComplete& Delegate)
+{
+    // Todo
+}
+
 bool FOnlineFriendsInterfaceGameSparks::DeleteFriend(int32 LocalUserNum, const FUniqueNetId &FriendId, const FString &ListName) {
     return false; // not supported
 }
@@ -100,6 +110,11 @@ bool FOnlineFriendsInterfaceGameSparks::QueryRecentPlayers(const FUniqueNetId &U
 
 bool FOnlineFriendsInterfaceGameSparks::GetRecentPlayers(const FUniqueNetId &UserId, const FString &Namespace, TArray<TSharedRef<FOnlineRecentPlayer> > &OutRecentPlayers) {
     return false; // not supported
+}
+
+void FOnlineFriendsInterfaceGameSparks::DumpRecentPlayers() const
+{
+    // Todo
 }
 
 

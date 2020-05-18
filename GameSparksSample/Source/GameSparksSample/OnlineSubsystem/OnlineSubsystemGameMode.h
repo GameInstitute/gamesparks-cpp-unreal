@@ -35,7 +35,7 @@ class GAMESPARKSSAMPLE_API AOnlineSubsystemGameMode : public AGameMode {
         // Tick
         virtual void Tick(float DeltaSeconds) override;
     private:
-        void OnConnectionStatusChanged(EOnlineServerConnectionStatus::Type LastConnectionState, EOnlineServerConnectionStatus::Type ConnectionState);
+        void OnConnectionStatusChanged(const FString& ServiceName, EOnlineServerConnectionStatus::Type LastConnectionState, EOnlineServerConnectionStatus::Type ConnectionState);
         FOnConnectionStatusChangedDelegate OnConnectionStatusChangedDelegate;
         FDelegateHandle OnConnectionStatusChangedDelegateHandle;
 

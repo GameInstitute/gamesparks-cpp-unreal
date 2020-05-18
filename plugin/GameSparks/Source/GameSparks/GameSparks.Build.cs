@@ -32,39 +32,9 @@ public class GameSparks : ModuleRules
             Path.Combine(GameSparksPath, "src", "cjson"),
             Path.Combine(GameSparksPath, "src", "easywsclient"),
             Path.Combine(GameSparksPath, "src", "google"),
-            Path.Combine(GameSparksPath, "src", "hmac"),
             Path.Combine(GameSparksPath, "src", "mbedtls"),
             Path.Combine(GameSparksPath, "src")
         });
-
-        switch (Target.Platform)
-        {
-            case UnrealTargetPlatform.Win32:
-                break;
-            case UnrealTargetPlatform.Win64:
-                break;
-            case UnrealTargetPlatform.Android:
-				PrivateDependencyModuleNames.Add("Launch");
-                break;
-            case UnrealTargetPlatform.IOS:
-                PublicAdditionalLibraries.Add("c++");
-                break;
-            case UnrealTargetPlatform.Mac:
-                break;
-            case UnrealTargetPlatform.PS4:
-                break;
-            case UnrealTargetPlatform.XboxOne:
-                break;
-            case UnrealTargetPlatform.Linux:
-                break;
-            case UnrealTargetPlatform.Switch:
-                AddDefinition("GS_USE_IN_MEMORY_PERSISTENT_STORAGE=1");
-                break;
-
-            case UnrealTargetPlatform.HTML5:
-            default:
-                throw new NotImplementedException("This target platform is not configured for GameSparks SDK: " + Target.Platform.ToString());
-        }
 
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -72,11 +42,11 @@ public class GameSparks : ModuleRules
         {
             string PluginPath = Path.GetFullPath(ModulePath);
 
-//#if UE_4_19_OR_LATER
-//            RuntimeDependencies.Add(Path.Combine(PluginPath, "GameSparks_APL.xml"));
-//#else
-            AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(PluginPath, "GameSparks_APL.xml")));
-//#endif
+            //#if UE_4_19_OR_LATER
+            //            RuntimeDependencies.Add(Path.Combine(PluginPath, "GameSparks_APL.xml"));
+            //#else
+            AdditionalPropertiesForReceipt.Add("AndroidPlugin", Path.Combine(PluginPath, "GameSparks_APL.xml"));
+            //#endif
         }
     }
 
